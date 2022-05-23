@@ -12,6 +12,7 @@ The goal was to create a site for making and storing Todos.
 - Search implementation
 - Filtering todos as active or finished
 - Form checking with formik
+- Item sorting based on deadline
 ## Author
 
 - Martin Bublavý
