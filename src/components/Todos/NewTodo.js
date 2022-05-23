@@ -7,7 +7,7 @@ import { useState, useContext } from "react";
 import NewTodoForm from "./NewTodoForm";
 import ActiveContext from "../../store/active-context";
 
-function NewTodo(props){
+function NewTodo(){
     const [showModal, setShowModal] = useState(false);
     const OpenFormModal = () => setShowModal(true);
     const CloseFormModal = () => setShowModal(false);
