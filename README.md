@@ -11,6 +11,7 @@ The goal was to create a site for making and storing Todos.
 - Switching sites with react router
 - Search implementation
 - Filtering todos as active or finished
+- Form checking with formik
 ## Author
 
 - Martin Bublavý
