@@ -28,6 +28,7 @@ export function SearchContextProvider(props){
                     return todo;
                 }
             }
+            return false;
         })
         return filteredData;
     }

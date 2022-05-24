@@ -1,4 +1,4 @@
-import { createContext, useCallback } from "react";
+import { createContext } from "react";
 import { useState, useEffect } from "react";
 
 const ActiveContext = createContext({
@@ -11,8 +11,6 @@ const ActiveContext = createContext({
 
 export function ActiveContextProvider(props){
     const [userActive, setUserActive] = useState([]);
-
-    const addActiveHandler = useCallback((newActive) => setUserActive((old) => ([...old, newActive])), [setUserActive])
 
     const removeActiveHandler = (todoId) => setUserActive((prevUserActive) => prevUserActive.filter(todo => todo.id !== todoId));
 
@@ -41,6 +39,12 @@ export function ActiveContextProvider(props){
         addActive: addActiveHandler,
         removeActive: removeActiveHandler,
     };
+
+    function addActiveHandler(finishedTodo){
+        setUserActive((prevUserActive) => {
+            return prevUserActive.concat(finishedTodo);
+        });   
+    }
 
     return(
         <ActiveContext.Provider value={context}>
