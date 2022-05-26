@@ -4,20 +4,17 @@ import { createRoot } from 'react-dom/client';
 
 import './index.css';
 import App from './App';
-import { FinishedContextProvider } from './store/finished-context';
-import { ActiveContextProvider } from './store/active-context';
 import { SearchContextProvider } from './store/searchContext';
+import { AllTodosContextProvider } from './store/allTodos-context';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 root.render(
   <SearchContextProvider>
-    <ActiveContextProvider>
-      <FinishedContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </FinishedContextProvider>
-    </ActiveContextProvider>
+    <AllTodosContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AllTodosContextProvider>
   </SearchContextProvider>
 );

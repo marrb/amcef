@@ -1,6 +1,5 @@
 import { StyledTodo, ModalStyle, ModalButtonConfirm, ModalButtonCancel } from "./Todos-styles/TodoStyle";
-import FinishedContext from "../../store/finished-context";
-import ActiveContext from "../../store/active-context";
+import allTodosContext from "../../store/allTodos-context";
 
 import { Grid, Stack } from "@mui/material";
 import { Modal, Box } from "@material-ui/core";
@@ -10,9 +9,8 @@ import { faCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 
 function Todo(props){
-    const finishedCtx = useContext(FinishedContext);
-    const activeCtx = useContext(ActiveContext);
-    const itemIsFinished = finishedCtx.todoIsFinished(props.id);
+    const allTodosCtx = useContext(allTodosContext);
+    const itemIsFinished = allTodosCtx.todoIsFinished(props.id);
     
 
     const [showModal, setShowModal] = useState(false);
@@ -20,43 +18,13 @@ function Todo(props){
     const CloseModal = () => setShowModal(false);
 
 
-    function confirmHandler(){
-        if(itemIsFinished){
-            finishedCtx.deleteFinished(props.id);
-        }
-        else{
-            activeCtx.removeActive(props.id);
-        }
-
+    const confirmHandler = () => {
+        allTodosCtx.removeTodo(props.id);
         CloseModal();
-        props.onConfirm(props.id);
     }
 
 
-    function toggleFinishedStatusHandler(){
-        if(itemIsFinished){
-            finishedCtx.deleteFinished(props.id);
-            activeCtx.addActive({
-                id: props.id,
-                title: props.title,
-                description: props.description,
-                deadline: props.deadline,
-                finished: props.finished,
-            });
-        }
-        else{
-            finishedCtx.addFinished({
-                id: props.id,
-                title: props.title,
-                description: props.description,
-                deadline: props.deadline,
-                finished: props.finished,
-            });
-            activeCtx.removeActive(props.id);
-        }
-    }
-
-
+    const toggleFinishedStatusHandler = () => allTodosCtx.switchState(props.id); 
     return (
         <>
             <Grid item xs={3}>

@@ -19,7 +19,7 @@ export const StyledNewTodo = styled.div`
     .plusicon{
         color: #800040;
         font-size: 80px;
-        margin-top: 16px;
-        margin-bottom: 16px;
+        margin-top: 26px;
+        margin-bottom: 26px;
     }
 `;

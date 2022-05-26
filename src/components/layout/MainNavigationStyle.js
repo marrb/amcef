@@ -18,6 +18,7 @@ export const StyledHeader = styled.header`
             border-top: none;
             border-left: none;
             border-right: none;
+            border-radius: 0;
         }
 
         .MuiOutlinedInput-root{
@@ -35,7 +36,7 @@ export const StyledHeader = styled.header`
 `;
 
 
-export const StyledNav = styled.ul`
+export const StyledList = styled.ul`
     list-style: none;
     margin: 0;
     padding: 0;

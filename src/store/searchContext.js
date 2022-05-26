@@ -4,33 +4,25 @@ import { useState, createContext } from 'react';
 const SearchContext = createContext({
     searchText: "",
     setText: (InputText) => {},
-    filterData: (TodoList) => {},
+    filterData: (todoList) => {},
 });
 
 export function SearchContextProvider(props){
     const [inputText, setInputText] = useState("");
+
+    const filterData = (todoList) => {
+        const filteredData = todoList.filter((todo) => inputText === '' ||
+            todo.title.toLowerCase().includes(inputText) ||
+            todo.description.toLowerCase().includes(inputText) ||
+            todo.deadline.includes(inputText))
+        return filteredData;
+    }
 
     const context = {
         searchText: inputText,
         setText: setInputText,
         filterData: filterData,
     };
-
-    function filterData(TodoList){
-        const filteredData = TodoList.filter((todo) => {
-            if(inputText === ''){
-                return todo;
-            }
-            else{
-                if(todo.title.toLowerCase().includes(inputText) ||
-                   todo.description.toLowerCase().includes(inputText) ||
-                   todo.deadline.includes(inputText)){
-                    return todo;
-                }
-            }
-        })
-        return filteredData;
-    }
 
     return(
         <SearchContext.Provider value={context}>
