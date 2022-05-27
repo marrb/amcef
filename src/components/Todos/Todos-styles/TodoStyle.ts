@@ -84,13 +84,15 @@ export const ModalStyle = {
 };
 
 export const ModalButtonCancel = {
+  textTransform: "none",
   borderRadius: "5px",
   background: "white",
+  color: "black",
+  border: "2px solid black",
   "&:hover": {
     background: "gray",
     color: "white",
   },
-
   padding: "0.5rem 1.5rem",
   fontWeight: "bold",
   cursor: "pointer",
@@ -98,8 +100,10 @@ export const ModalButtonCancel = {
 };
 
 export const ModalButtonConfirm = {
+  textTransform: "none",
   borderRadius: "5px",
-  bgcolor: "#800040",
+  background: "#800040",
+  border: "2px solid black",
   "&:hover": {
     background: "#f8dae9",
     color: "black",

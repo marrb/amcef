@@ -69,14 +69,10 @@ const Todo: React.FC<TodoProps> = ({ id, title, description, deadline }) => {
               px: 8,
             }}
           >
-            <Box component="button" sx={ModalButtonCancel} onClick={CloseModal}>
+            <Button sx={ModalButtonCancel} onClick={CloseModal} classes={{}}>
               Cancel
-            </Box>
-            <Button
-              type="button"
-              sx={ModalButtonConfirm}
-              onClick={confirmHandler}
-            >
+            </Button>
+            <Button sx={ModalButtonConfirm} onClick={confirmHandler}>
               Confirm
             </Button>
           </Box>

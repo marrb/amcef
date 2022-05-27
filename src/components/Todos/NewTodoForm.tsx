@@ -18,16 +18,13 @@ import {
 import allTodosContext from "../../store/allTodos-context";
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required("Please fill out this field."),
+  title: Yup.string().trim().required("Please fill out this field."),
 
   deadline: Yup.date()
     .required("Please fill out this field.")
     .test("date-check", "Invalid date entered!", (value) => {
       const currTime = new Date();
-      if (currTime >= value!) {
-        return false;
-      }
-      return true;
+      return currTime < value!;
     }),
 });
 
@@ -59,10 +56,11 @@ const NewTodoForm: React.FC<NewTodoFormProps> = ({ onCancel }) => {
     <Paper>
       <Box sx={FormModalStyle}>
         <Formik
-          initialValues={{} as Fields}
+          initialValues={{ deadline: "", description: "", title: "" } as Fields}
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
           validateOnChange
+          enableReinitialize
         >
           {({ errors, touched }) => (
             <Form>
@@ -91,7 +89,7 @@ const NewTodoForm: React.FC<NewTodoFormProps> = ({ onCancel }) => {
                 ) : null}
               </FormDiv>
               <ActionsDiv>
-                <Button sx={ModalButtonCancel} type="button" onClick={onCancel}>
+                <Button sx={ModalButtonCancel} onClick={onCancel}>
                   Cancel
                 </Button>
                 <Button sx={ModalButtonConfirm} type="submit">
