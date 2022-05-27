@@ -23,11 +23,18 @@ export const StyledHeader = styled.header`
 
     .MuiOutlinedInput-root {
       color: white;
-      caret-color: white;
     }
 
-    & .Mui-focused .MuiOutlinedInput-notchedOutline {
+    .Mui-focused .MuiOutlinedInput-notchedOutline {
       border-color: #fcb8d2;
+    }
+
+    .MuiOutlinedInput-input {
+      caret-color: transparent;
+    }
+
+    .Mui-focused .MuiOutlinedInput-input {
+      caret-color: white;
     }
 
     .searchInput {
