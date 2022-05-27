@@ -5,7 +5,7 @@ import SearchContext from "../store/searchContext";
 import allTodosContext from "../store/allTodos-context";
 import TodoList from "../components/Todos/TodoList";
 
-function FinishedTodosPage() {
+const FinishedTodosPage = () => {
   const searchCtx = useContext(SearchContext);
   const allTodosCtx = useContext(allTodosContext);
 
@@ -24,6 +24,6 @@ function FinishedTodosPage() {
       </Grid>
     </Container>
   );
-}
+};
 
 export default FinishedTodosPage;

@@ -1,9 +1,14 @@
+import { Todo as TodoType } from "../../contracts/firebase";
 import Todo from "./Todo";
 
-function TodoList(props) {
+interface TodoListProps {
+  Todos: TodoType[];
+}
+
+const TodoList: React.FC<TodoListProps> = ({ Todos }) => {
   return (
     <>
-      {props.Todos.map((todo) => (
+      {Todos.map((todo) => (
         <Todo
           key={todo.id}
           id={todo.id}
@@ -14,6 +19,6 @@ function TodoList(props) {
       ))}
     </>
   );
-}
+};
 
 export default TodoList;

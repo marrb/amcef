@@ -5,26 +5,30 @@ import { useContext, useMemo } from "react";
 import { StyledList, StyledHeader } from "./MainNavigationStyle";
 import searchContext from "../../store/searchContext";
 import allTodosContext from "../../store/allTodos-context";
+import { ChangeEvent } from "react";
 
-function MainNavigation() {
+const MainNavigation = () => {
   const searchCtx = useContext(searchContext);
   const allTodosCtx = useContext(allTodosContext);
 
-  const changeHandler = (event) =>
+  const changeHandler = (event: ChangeEvent<HTMLInputElement>) =>
     searchCtx.setText(event.target.value.toLowerCase());
 
   const activeCount = useMemo(
     () => allTodosCtx.todos.filter((todo) => todo.finished === false).length,
     [allTodosCtx.todos]
   );
+
   const finishedCount = useMemo(
     () => allTodosCtx.todos.filter((todo) => todo.finished === true).length,
     [allTodosCtx.todos]
   );
+
   const allCount = useMemo(
     () => activeCount + finishedCount,
     [activeCount, finishedCount]
   );
+
   return (
     <StyledHeader>
       <nav>
@@ -66,6 +70,6 @@ function MainNavigation() {
       </TextField>
     </StyledHeader>
   );
-}
+};
 
 export default MainNavigation;

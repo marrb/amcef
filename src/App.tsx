@@ -5,16 +5,16 @@ import ActiveTodosPage from "./pages/ActiveTodos";
 import FinishedTodosPage from "./pages/FinishedTodos";
 import Layout from "./components/layout/Layout";
 
-function App() {
+const App = () => {
   return (
     <Layout>
       <Routes>
-        <Route exact path="/" element={<AllTodosPage />} />
-        <Route exact path="/active" element={<ActiveTodosPage />} />
-        <Route exact path="/done" element={<FinishedTodosPage />} />
+        <Route path="/" element={<AllTodosPage />} />
+        <Route path="/active" element={<ActiveTodosPage />} />
+        <Route path="/done" element={<FinishedTodosPage />} />
       </Routes>
     </Layout>
   );
-}
+};
 
 export default App;

@@ -7,7 +7,7 @@ import TodoList from "../components/Todos/TodoList";
 import SearchContext from "../store/searchContext";
 import allTodosContext from "../store/allTodos-context";
 
-function AllTodosPage() {
+const AllTodosPage = () => {
   const searchCtx = useContext(SearchContext);
   const allTodosCtx = useContext(allTodosContext);
 
@@ -24,6 +24,6 @@ function AllTodosPage() {
       </Grid>
     </Container>
   );
-}
+};
 
 export default AllTodosPage;

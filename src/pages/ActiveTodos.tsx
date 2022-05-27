@@ -6,7 +6,7 @@ import SearchContext from "../store/searchContext";
 import allTodosContext from "../store/allTodos-context";
 import NewTodo from "../components/Todos/NewTodo";
 
-function ActiveTodosPage() {
+const ActiveTodosPage = () => {
   const searchCtx = useContext(SearchContext);
   const allTodosCtx = useContext(allTodosContext);
 
@@ -26,6 +26,6 @@ function ActiveTodosPage() {
       </Grid>
     </Container>
   );
-}
+};
 
 export default ActiveTodosPage;

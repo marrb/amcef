@@ -1,4 +1,4 @@
-import { Paper } from "@mui/material";
+import { Paper, Button } from "@mui/material";
 import { Box } from "@material-ui/core";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -22,20 +22,30 @@ const validationSchema = Yup.object().shape({
 
   deadline: Yup.date()
     .required("Please fill out this field.")
-    .test("date-check", "Invalid date entered!", function (value) {
+    .test("date-check", "Invalid date entered!", (value) => {
       const currTime = new Date();
-      if (currTime >= value) {
+      if (currTime >= value!) {
         return false;
       }
       return true;
     }),
 });
 
-function NewTodoForm(props) {
+interface NewTodoFormProps {
+  onCancel: () => void;
+}
+
+type Fields = {
+  title: string;
+  description: string;
+  deadline: string;
+};
+
+const NewTodoForm: React.FC<NewTodoFormProps> = ({ onCancel }) => {
   const allTodosCtx = useContext(allTodosContext);
 
-  function sumbitHandler(values) {
-    props.onCancel();
+  const handleSubmit = (values: Fields) => {
+    onCancel();
 
     allTodosCtx.addTodo({
       title: values.title,
@@ -43,14 +53,14 @@ function NewTodoForm(props) {
       deadline: values.deadline.replace("T", "\xa0\xa0\xa0"),
       finished: false,
     });
-  }
+  };
 
   return (
     <Paper>
       <Box sx={FormModalStyle}>
         <Formik
-          initialValues={{ title: "", description: "", deadline: "" }}
-          onSubmit={sumbitHandler}
+          initialValues={{} as Fields}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
           validateOnChange
         >
@@ -61,9 +71,8 @@ function NewTodoForm(props) {
                 <Field type="text" name="title" />
                 {errors.title && touched.title ? (
                   <ErrorPopUp>
-                    {" "}
-                    <RiErrorWarningFill className="warningIcon" />{" "}
-                    <span> {errors.title}</span>{" "}
+                    <RiErrorWarningFill className="warningIcon" />
+                    <span> {errors.title}</span>
                   </ErrorPopUp>
                 ) : null}
               </FormDiv>
@@ -76,24 +85,18 @@ function NewTodoForm(props) {
                 <Field type="datetime-local" name="deadline" />
                 {errors.deadline && touched.deadline ? (
                   <ErrorPopUp>
-                    {" "}
-                    <RiErrorWarningFill className="warningIcon" />{" "}
-                    <span> {errors.deadline}</span>{" "}
+                    <RiErrorWarningFill className="warningIcon" />
+                    <span> {errors.deadline}</span>
                   </ErrorPopUp>
                 ) : null}
               </FormDiv>
               <ActionsDiv>
-                <Box
-                  component="button"
-                  type="button"
-                  sx={ModalButtonCancel}
-                  onClick={props.onCancel}
-                >
+                <Button sx={ModalButtonCancel} type="button" onClick={onCancel}>
                   Cancel
-                </Box>
-                <Box component="button" type="submit" sx={ModalButtonConfirm}>
+                </Button>
+                <Button sx={ModalButtonConfirm} type="submit">
                   Submit
-                </Box>
+                </Button>
               </ActionsDiv>
             </Form>
           )}
@@ -101,6 +104,6 @@ function NewTodoForm(props) {
       </Box>
     </Paper>
   );
-}
+};
 
 export default NewTodoForm;

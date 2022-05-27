@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 
@@ -7,8 +6,8 @@ import App from "./App";
 import { SearchContextProvider } from "./store/searchContext";
 import { AllTodosContextProvider } from "./store/allTodos-context";
 
-const rootElement = document.getElementById("root");
-const root = createRoot(rootElement);
+const root = createRoot(document.getElementById("root") as HTMLElement);
+
 root.render(
   <SearchContextProvider>
     <AllTodosContextProvider>

@@ -1,5 +1,6 @@
-import { createContext } from "react";
+import { createContext, ReactNode } from "react";
 import { useState, useEffect, useCallback } from "react";
+import { AddTodoRequest, Todo } from "../contracts/firebase";
 
 import {
   getTodos,
@@ -8,16 +9,22 @@ import {
   updateTodo,
 } from "../services/firebase";
 
-const allTodosContext = createContext({
-  todos: [],
-  addTodo: (newTodo) => {},
-  removeTodo: (todoId) => {},
-  switchState: (todoId) => {},
-  todoIsFinished: (todoId) => {},
-});
+interface ContextProps {
+  children: ReactNode;
+}
 
-export function AllTodosContextProvider(props) {
-  const [userTodos, setUserTodos] = useState([]);
+interface AllTodosType {
+  todos: Array<Todo>;
+  addTodo: (newTodo: AddTodoRequest) => Promise<void>;
+  removeTodo: (todoId: string) => Promise<void>;
+  switchState: (todoId: string) => void;
+  todoIsFinished: (todoId: string) => boolean;
+}
+
+const allTodosContext = createContext({} as AllTodosType);
+
+export const AllTodosContextProvider = ({ children }: ContextProps) => {
+  const [userTodos, setUserTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     getTodos().then((res) => {
@@ -26,22 +33,23 @@ export function AllTodosContextProvider(props) {
   }, []);
 
   const todoIsFinishedHandler = useCallback(
-    (todoId) =>
+    (todoId: string) =>
       userTodos.some((todo) => todo.id === todoId && todo.finished === true),
     [userTodos]
   );
 
-  const removeTodoHandler = (todoId) =>
+  const removeTodoHandler = (todoId: string) =>
     deleteTodo(todoId).then(() => {
       setUserTodos(userTodos.filter((todo) => todo.id !== todoId));
     });
 
-  const addTodoHandler = (newTodo) =>
-    addTodo(newTodo).then((res) => {
-      setUserTodos((prev) => [...prev, { id: res.id, ...newTodo }]);
-    });
+  const addTodoHandler = async (newTodo: AddTodoRequest) => {
+    const todo = await addTodo(newTodo);
 
-  const switchTodoStatus = (todoId) => {
+    setUserTodos((prev) => [...prev, todo]);
+  };
+
+  const switchTodoStatus = (todoId: string) => {
     setUserTodos((prev) => {
       return prev.map((todo) => {
         return todo.id === todoId
@@ -52,7 +60,7 @@ export function AllTodosContextProvider(props) {
     updateTodo(todoId);
   };
 
-  const context = {
+  const context: AllTodosType = {
     todos: userTodos.sort((a, b) => {
       if (a.finished === false && b.finished === false)
         return a.deadline < b.deadline ? -1 : 1;
@@ -66,9 +74,9 @@ export function AllTodosContextProvider(props) {
 
   return (
     <allTodosContext.Provider value={context}>
-      {props.children}
+      {children}
     </allTodosContext.Provider>
   );
-}
+};
 
 export default allTodosContext;

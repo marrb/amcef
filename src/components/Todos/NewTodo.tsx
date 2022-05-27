@@ -6,8 +6,8 @@ import { useState } from "react";
 
 import NewTodoForm from "./NewTodoForm";
 
-function NewTodo() {
-  const [showModal, setShowModal] = useState(false);
+const NewTodo = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
   const OpenFormModal = () => setShowModal(true);
   const CloseFormModal = () => setShowModal(false);
 
@@ -26,6 +26,6 @@ function NewTodo() {
       </Modal>
     </>
   );
-}
+};
 
 export default NewTodo;
