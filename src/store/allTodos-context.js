@@ -30,10 +30,12 @@ export function AllTodosContextProvider(props) {
       userTodos.some((todo) => todo.id === todoId && todo.finished === true),
     [userTodos]
   );
+
   const removeTodoHandler = (todoId) =>
     deleteTodo(todoId).then(() => {
       setUserTodos(userTodos.filter((todo) => todo.id !== todoId));
     });
+
   const addTodoHandler = (newTodo) =>
     addTodo(newTodo).then((res) => {
       setUserTodos((prev) => [...prev, { id: res.id, ...newTodo }]);

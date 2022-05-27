@@ -8,6 +8,7 @@ export const StyledHeader = styled.header`
   justify-content: space-between;
   background-color: #77002e;
   margin-bottom: 30px;
+  caret-color: transparent;
 
   .searchBar {
     margin-right: 40px;
@@ -22,6 +23,7 @@ export const StyledHeader = styled.header`
 
     .MuiOutlinedInput-root {
       color: white;
+      caret-color: white;
     }
 
     & .Mui-focused .MuiOutlinedInput-notchedOutline {

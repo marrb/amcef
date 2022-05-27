@@ -10,6 +10,7 @@ export const StyledTodo = styled.div`
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 1rem;
+  caret-color: transparent;
 
   p {
     text-align: left;
